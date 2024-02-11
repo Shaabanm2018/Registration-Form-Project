@@ -1,0 +1,41 @@
+<?php
+$link = mysqli_connect("localhost", "root", "", "");
+mysqli_select_db( $link,"world");
+
+$state =$_GET["state"];
+$ids=$_GET["ids"];
+$cityddid='citydd';
+$cityddid2= $cityddid.$ids;
+$state = str_replace('_', ' ', $state);
+$state = str_replace("'", "\'", $state);
+if (($state!="") and ($state!="Select"))
+{
+$result = mysqli_query($link,"select * FROM states WHERE name = '$state'") or die( mysqli_error($link));
+while ($row=mysqli_fetch_array($result)) {
+    $res2 = $row['id'];
+}
+
+$res=mysqli_query($link,"select * from cities where state_id=$res2");
+echo "<select>";
+echo "<option>"; echo "Select"; echo "</option>";
+while($row=mysqli_fetch_array($res))
+{
+echo "<option selected>"; echo $row["name"];	 echo "</option>";
+}
+echo "</select>";
+}
+else{
+echo "<select>";
+
+
+
+
+
+echo "</select>";
+}
+
+
+
+
+
+?>
